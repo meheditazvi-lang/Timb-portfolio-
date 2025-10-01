@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timb</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom styles for the dark theme and font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a; /* Deep dark background */
+            color: #f3f4f6; /* Light gray text */
+        }
+        /* Custom style for the unique hero image shape */
+        .hero-image-clip {
+            /* Using a large border-radius to create the rounded capsule effect */
+            border-radius: 60% 40% 40% 60% / 60% 30% 70% 40%;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        /* Custom scrollbar for the client section on desktop */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        /* Gradient for the 'Timb'' section */
+        .services-bg {
+            background-image: linear-gradient(to bottom, #0a0a0a, #1f2937);
+        }
+
+        /* Responsive Hero Image Container (Mobile specific size) */
+        @media (max-width: 767px) {
+            .hero-img-container {
+                width: 250px;
+                height: 250px;
+                margin-top: 2rem;
+            }
+        }
+
+        /* Focus state styling for better accessibility */
+        .btn-primary:focus, .btn-secondary:focus {
+            /* Updated focus ring color: #FF005A */
+            box-shadow: 0 0 0 4px rgba(255, 0, 90, 0.5); 
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'accent': '#FF005A', /* Vibrant Deep Pink Accent */
+                        'dark-bg': '#0a0a0a',
+                        'card-bg': '#1f2937',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-bg">
+
+    <!-- Navbar -->
+    <header class="container mx-auto px-4 py-4 md:py-6 sticky top-0 bg-dark-bg z-10">
+        <nav class="flex justify-between items-center">
+            <div class="text-xl font-bold text-white">Timb</div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+                <a href="#" class="hover:text-accent transition duration-150">Home</a>
+                <a href="#projects" class="hover:text-accent transition duration-150">Projects</a>
+                <a href="#about" class="hover:text-accent transition duration-150">About Me</a>
+                <a href="#contact" class="hover:text-accent transition duration-150">Contact Me</a>
+            </div>
+            <!-- Mobile Menu Placeholder -->
+            <button class="md:hidden text-white p-2 rounded-lg hover:bg-gray-800 transition duration-150" aria-label="Open menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-8">
+
+        <!-- 1. Hero Section -->
+        <section id="hero" class="pt-10 md:pt-20 pb-16 md:pb-24">
+            <div class="flex flex-col md:flex-row items-center md:items-start md:justify-between">
+                <!-- Text Content -->
+                <div class="md:w-1/2 text-center md:text-left">
+                    <p class="text-lg text-gray-300 mb-3">Hi, I am Tasbih(Timb)</p>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white mb-6">
+                        I make cool shit <br class="hidden md:inline"> 
+                    </h1>
+                    <p class="text-base md:text-lg text-gray-400 max-w-lg mb-8">
+                        I mainly do art, cooking and photography atm. But I combined them all together sometimes. In the future I will do cinematography by combining all this and if possible more.
+
+                    </p>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#contact" class="btn-primary px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-pink-700 transition duration-300 shadow-lg shadow-accent/20">
+                            Contact Us
+                        </a>
+                        <a href="#projects" class="btn-secondary px-6 py-3 text-accent border border-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition duration-300">
+                            View Portfolio
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <div class="hero-img-container md:w-[350px] md:h-[400px] flex justify-center mt-12 md:mt-0">
+                    <img src="IMG_5625.jpg" 
+                         alt="IMG_5625 Profile Picture" 
+                         class="hero-image-clip w-full h-full object-cover shadow-2xl shadow-gray-900/50">
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Projects Section -->
+        <section id="projects" class="py-16 md:py-24">
+            <h2 class="sr-only">Portfolio Projects</h2>
+            
+            <!-- Project X -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center mb-24">
+                <!-- Text Content -->
+                <div class="order-2 md:order-1 p-6 bg-card-bg rounded-xl shadow-2xl">
+                    <h3 class="text-3xl font-bold text-white mb-4">Project X: Luxury Real Estate</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-400 mb-6 pl-4">
+                        <li>Filmed 4K content for high-end clients.</li>
+                        <li>Delivered stunning visuals and cinematic color grading.</li>
+                        <li>Optimized for Instagram and YouTube promotion.</li>
+                    </ul>
+                    <div class="flex space-x-4">
+                        <button class="px-5 py-2 text-sm bg-accent text-white font-medium rounded-lg hover:bg-pink-700 transition duration-300">
+                            View Video
+                        </button>
+                        <button class="px-5 py-2 text-sm text-accent border border-accent font-medium rounded-lg hover:bg-accent hover:text-white transition duration-300">
+                            Read Case Study →
+                        </button>
+                    </div>
+                </div>
+                <!-- Image -->
+                <div class="order-1 md:order-2 rounded-xl overflow-hidden">
+                    <img src="https://placehold.co/600x400/1f2937/ffffff?text=Luxury+Interior" 
+                         alt="Project X Image" 
+                         class="w-full h-auto object-cover rounded-xl transition duration-500 hover:scale-[1.02] transform">
+                </div>
+            </div>
+
+            <!-- Project Y (Reversed Layout) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                <!-- Image -->
+                <div class="rounded-xl overflow-hidden">
+                    <img src="https://placehold.co/600x400/1f2937/ffffff?text=Mountain+Adventure" 
+                         alt="Project Y Image" 
+                         class="w-full h-auto object-cover rounded-xl transition duration-500 hover:scale-[1.02] transform">
+                </div>
+                <!-- Text Content -->
+                <div class="p-6 bg-card-bg rounded-xl shadow-2xl">
+                    <h3 class="text-3xl font-bold text-white mb-4">Project Y: Automotive Campaign</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-400 mb-6 pl-4">
+                        <li>Directed and edited a cinematic car advertisement.</li>
+                        <li>Integrated drone footage and dynamic camera work.</li>
+                        <li>Achieved over 1M organic views.</li>
+                    </ul>
+                    <div class="flex space-x-4">
+                        <button class="px-5 py-2 text-sm bg-accent text-white font-medium rounded-lg hover:bg-pink-700 transition duration-300">
+                            View Video
+                        </button>
+                        <button class="px-5 py-2 text-sm text-accent border border-accent font-medium rounded-lg hover:bg-accent hover:text-white transition duration-300">
+                            View Project →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. My Work Gallery -->
+        <section id="work-gallery" class="py-16 md:py-24 border-t border-gray-800">
+            <h2 class="text-center text-4xl font-bold text-white mb-12">My Work</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="rounded-xl overflow-hidden aspect-square">
+                    <img src="https://placehold.co/400x400/1e2e3e/ffffff?text=Art+Piece+1" alt="Gallery Image 1" class="w-full h-full object-cover hover:opacity-75 transition duration-300">
+                </div>
+                <div class="rounded-xl overflow-hidden aspect-square">
+                    <img src="https://placehold.co/400x400/1e2e3e/ffffff?text=Cooking+Shot" alt="Gallery Image 2" class="w-full h-full object-cover hover:opacity-75 transition duration-300">
+                </div>
+                <div class="rounded-xl overflow-hidden aspect-square">
+                    <img src="https://placehold.co/400x400/1e2e3e/ffffff?text=Photo+Shot" alt="Gallery Image 3" class="w-full h-full object-cover hover:opacity-75 transition duration-300">
+                </div>
+                <div class="rounded-xl overflow-hidden aspect-square">
+                    <img src="https://placehold.co/400x400/1e2e3e/ffffff?text=Combination" alt="Gallery Image 4" class="w-full h-full object-cover hover:opacity-75 transition duration-300">
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CTA/Services Block -->
+        <section id="about" class="py-16 md:py-24 services-bg rounded-xl mt-12 mb-20">
+            <div class="text-center max-w-3xl mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6">
+                    From Vision to Visual Story.
+                </h2>
+                <p class="text-lg text-gray-400 mb-12">
+                    I offer end-to-end creative services, blending art, cooking, and photography into unique visual projects.
+                </p>
+
+                <!-- Features -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="p-4 rounded-lg">
+                        <div class="flex justify-center mb-4">
+                             <i data-lucide="palette" class="w-8 h-8 text-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Conceptual Art</h3>
+                        <p class="text-gray-400 text-sm">
+                            If you want more than a sharp editor, let's craft a compelling visual narrative for your brand.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-lg">
+                        <div class="flex justify-center mb-4">
+                             <i data-lucide="chef-hat" class="w-8 h-8 text-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Culinary Production</h3>
+                        <p class="text-gray-400 text-sm">
+                            Bringing food to life through beautiful presentation and high-quality photo/video.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-lg">
+                        <div class="flex justify-center mb-4">
+                             <i data-lucide="camera" class="w-8 h-8 text-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Photography</h3>
+                        <p class="text-gray-400 text-sm">
+                            High-quality stills and dynamic photography for any project type.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center space-x-4">
+                    <a href="#contact" class="btn-primary px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-pink-700 transition duration-300 shadow-lg shadow-accent/20">
+                        Start a Project
+                    </a>
+                    <a href="#projects" class="btn-secondary px-6 py-3 text-accent border border-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition duration-300">
+                        See Projects
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- 6. Footer -->
+    <footer id="contact" class="bg-gray-900 pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 text-gray-400">
+            
+            <!-- Contact Info -->
+            <div>
+                <h4 class="text-xl font-bold text-white mb-4">Contact Information</h4>
+                <p class="mb-2">Your Address, Egypt</p>
+                <p class="mb-2">your.email@example.com</p>
+                <p class="mb-4">+20 100 123 4567</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-accent transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-accent transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-accent transition"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div>
+                <h4 class="text-xl font-bold text-white mb-4">Navigate</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-accent transition">Home</a></li>
+                    <li><a href="#projects" class="hover:text-accent transition">Projects</a></li>
+                    <li><a href="#about" class="hover:text-accent transition">About</a></li>
+                    <li><a href="#contact" class="hover:text-accent transition">Services</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal/Policies -->
+            <div>
+                <h4 class="text-xl font-bold text-white mb-4">Legal</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-accent transition">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-accent transition">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter/Motto -->
+            <div>
+                <h4 class="text-xl font-bold text-white mb-4">Motto</h4>
+                <p>Creating compelling visual stories that captivate and convert.</p>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="container mx-auto px-4 md:px-8 mt-12 border-t border-gray-800 pt-6 text-center text-sm text-gray-500">
+            &copy; 2024 Timb. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+        
+        // Minor change: We also update the image alt text to better reflect the specific image
+        const heroImage = document.querySelector('.hero-img-container img');
+        if (heroImage) {
+            heroImage.alt = "IMG_5625 Profile Picture";
+        }
+    </script>
+</body>
+</html>
+
