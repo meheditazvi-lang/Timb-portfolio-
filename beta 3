@@ -1,0 +1,474 @@
+import React, { useState, useEffect } from 'react';
+import { Palette, ChefHat, Camera, Menu, X, Facebook, Instagram, Youtube, ArrowRight } from 'lucide-react';
+
+// Define custom color and screen pages
+const ACCENT_COLOR = '#FF005A'; // Deep Pink
+const DARK_BG = '#0a0a0a';
+const CARD_BG = '#1f2937';
+const TEXT_LIGHT = '#f3f4f6';
+const TEXT_GRAY = '#4b5563';
+
+const PAGES = {
+  HOME: 'home',
+  PROJECTS: 'projects',
+  ABOUT: 'about',
+  CONTACT: 'contact'
+};
+
+// --- Sub-Components ---
+
+// Navigation Bar
+const Navbar = ({ currentPage, onNavigate }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navItems = [
+    { name: 'Home', page: PAGES.HOME },
+    { name: 'Projects', page: PAGES.PROJECTS },
+    { name: 'About Me', page: PAGES.ABOUT },
+    { name: 'Contact Me', page: PAGES.CONTACT },
+  ];
+
+  const handleNavClick = (page) => {
+    onNavigate(page);
+    setIsMenuOpen(false); // Close menu on selection
+  };
+
+  return (
+    <header className="container mx-auto px-4 py-4 md:py-6 sticky top-0 z-20" style={{ backgroundColor: DARK_BG }}>
+      <nav className="flex justify-between items-center">
+        <div className="text-2xl font-extrabold" style={{ color: ACCENT_COLOR }}>Timb</div>
+        
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+          {navItems.map(item => (
+            <button
+              key={item.page}
+              onClick={() => handleNavClick(item.page)}
+              className={`transition duration-150 hover:text-white ${currentPage === item.page ? 'text-white border-b-2 border-accent' : 'text-gray-400'}`}
+              style={{ borderColor: ACCENT_COLOR }}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className="md:hidden p-2 rounded-lg hover:bg-gray-800 transition duration-150" 
+          aria-label="Open menu"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          style={{ color: TEXT_LIGHT }}
+        >
+          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu Dropdown */}
+      {isMenuOpen && (
+        <div 
+          className="md:hidden absolute left-0 w-full p-4 mt-2 rounded-lg shadow-xl"
+          style={{ backgroundColor: CARD_BG }}
+        >
+          {navItems.map(item => (
+            <button
+              key={item.page}
+              onClick={() => handleNavClick(item.page)}
+              className={`block w-full text-left py-3 px-4 font-medium transition duration-150 rounded-lg ${
+                currentPage === item.page ? 'text-white' : 'text-gray-400 hover:text-accent'
+              }`}
+              style={currentPage === item.page ? { color: ACCENT_COLOR } : {}}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+      )}
+    </header>
+  );
+};
+
+// Footer Component
+const Footer = () => (
+  <footer className="pt-16 pb-8 border-t" style={{ backgroundColor: '#111827', borderColor: '#374151' }}>
+    <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 text-gray-400">
+        
+        {/* Contact Info */}
+        <div>
+            <h4 className="text-xl font-bold mb-4" style={{ color: TEXT_LIGHT }}>Contact Information</h4>
+            <p className="mb-2">Your Address, Egypt</p>
+            <p className="mb-2">your.email@example.com</p>
+            <p className="mb-4">+20 100 123 4567</p>
+            <div className="flex space-x-4">
+                <a href="#" className="transition" style={{ color: TEXT_GRAY, transition: 'color 0.3s' }} onMouseEnter={e => e.target.style.color = ACCENT_COLOR} onMouseLeave={e => e.target.style.color = TEXT_GRAY}><Facebook className="w-5 h-5" /></a>
+                <a href="#" className="transition" style={{ color: TEXT_GRAY, transition: 'color 0.3s' }} onMouseEnter={e => e.target.style.color = ACCENT_COLOR} onMouseLeave={e => e.target.style.color = TEXT_GRAY}><Instagram className="w-5 h-5" /></a>
+                <a href="#" className="transition" style={{ color: TEXT_GRAY, transition: 'color 0.3s' }} onMouseEnter={e => e.target.style.color = ACCENT_COLOR} onMouseLeave={e => e.target.style.color = TEXT_GRAY}><Youtube className="w-5 h-5" /></a>
+            </div>
+        </div>
+
+        {/* Navigation Links */}
+        <div>
+            <h4 className="text-xl font-bold mb-4" style={{ color: TEXT_LIGHT }}>Navigate</h4>
+            <ul className="space-y-2">
+                <li><button onClick={() => window.scrollTo(0, 0)} className="hover:text-accent transition duration-150" style={{ color: TEXT_GRAY, transition: 'color 0.3s' }} onMouseEnter={e => e.target.style.color = ACCENT_COLOR} onMouseLeave={e => e.target.style.color = TEXT_GRAY}>Home</button></li>
+                <li><button onClick={() => window.scrollTo(0, 0)} className="hover:text-accent transition duration-150" style={{ color: TEXT_GRAY, transition: 'color 0.3s' }} onMouseEnter={e => e.target.style.color = ACCENT_COLOR} onMouseLeave={e => e.target.style.color = TEXT_GRAY}>Projects</button></li>
+                <li><button onClick={() => window.scrollTo(0, 0)} className="hover:text-accent transition duration-150" style={{ color: TEXT_GRAY, transition: 'color 0.3s' }} onMouseEnter={e => e.target.style.color = ACCENT_COLOR} onMouseLeave={e => e.target.style.color = TEXT_GRAY}>About</button></li>
+                <li><button onClick={() => window.scrollTo(0, 0)} className="hover:text-accent transition duration-150" style={{ color: TEXT_GRAY, transition: 'color 0.3s' }} onMouseEnter={e => e.target.style.color = ACCENT_COLOR} onMouseLeave={e => e.target.style.color = TEXT_GRAY}>Contact</button></li>
+            </ul>
+        </div>
+
+        {/* Legal/Policies */}
+        <div>
+            <h4 className="text-xl font-bold mb-4" style={{ color: TEXT_LIGHT }}>Legal</h4>
+            <ul className="space-y-2">
+                <li><a href="#" className="hover:text-accent transition duration-150" style={{ color: TEXT_GRAY, transition: 'color 0.3s' }} onMouseEnter={e => e.target.style.color = ACCENT_COLOR} onMouseLeave={e => e.target.style.color = TEXT_GRAY}>Terms of Service</a></li>
+                <li><a href="#" className="hover:text-accent transition duration-150" style={{ color: TEXT_GRAY, transition: 'color 0.3s' }} onMouseEnter={e => e.target.style.color = ACCENT_COLOR} onMouseLeave={e => e.target.style.color = TEXT_GRAY}>Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        {/* Newsletter/Motto */}
+        <div>
+            <h4 className="text-xl font-bold mb-4" style={{ color: TEXT_LIGHT }}>Motto</h4>
+            <p>Creating compelling visual stories that captivate and convert.</p>
+        </div>
+    </div>
+
+    {/* Copyright */}
+    <div className="container mx-auto px-4 md:px-8 mt-12 border-t pt-6 text-center text-sm text-gray-500" style={{ borderColor: '#374151' }}>
+        &copy; 2024 Timb. All rights reserved.
+    </div>
+  </footer>
+);
+
+
+// --- Page Components (Screens) ---
+
+const HeroSection = ({ onNavigate }) => (
+  <section id="hero" className="pt-10 md:pt-20 pb-16 md:pb-24">
+    <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between">
+      {/* Text Content */}
+      <div className="md:w-1/2 text-center md:text-left">
+        <p className="text-lg text-gray-300 mb-3">Hi, I am Tasbih(Timb)</p>
+        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-white mb-6">
+          I make cool shit <br className="hidden md:inline" /> 
+        </h1>
+        <p className="text-base md:text-lg text-gray-400 max-w-lg mb-8">
+          I mainly do art, cooking and photography atm. But I combined them all together sometimes. In the future I will do cinematography by combining all this and if possible more.
+        </p>
+        <div className="flex justify-center md:justify-start space-x-4">
+          <button 
+            onClick={() => onNavigate(PAGES.CONTACT)} 
+            className="px-6 py-3 text-white font-semibold rounded-lg shadow-lg shadow-pink-900/40 transition duration-300"
+            style={{ backgroundColor: ACCENT_COLOR, hover: { backgroundColor: '#c70048' } }} // Adjusted hover color
+            onMouseEnter={e => e.currentTarget.style.backgroundColor = '#c70048'}
+            onMouseLeave={e => e.currentTarget.style.backgroundColor = ACCENT_COLOR}
+          >
+            Contact Us
+          </button>
+          <button 
+            onClick={() => onNavigate(PAGES.PROJECTS)} 
+            className="px-6 py-3 text-accent border font-semibold rounded-lg hover:text-white transition duration-300"
+            style={{ color: ACCENT_COLOR, borderColor: ACCENT_COLOR }}
+            onMouseEnter={e => { e.currentTarget.style.backgroundColor = ACCENT_COLOR; e.currentTarget.style.color = 'white'; }}
+            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = ACCENT_COLOR; }}
+          >
+            View Portfolio
+          </button>
+        </div>
+      </div>
+
+      {/* Image */}
+      <div className="hero-img-container md:w-[350px] md:h-[400px] flex justify-center mt-12 md:mt-0">
+        <img 
+          src="uploaded:image.png-4a968ff2-62c4-4248-85d1-16aaf67e38dd" 
+          alt="IMG_5625 Profile Picture" 
+          className="w-full h-full object-cover shadow-2xl shadow-gray-900/50"
+          style={{ 
+            borderRadius: '60% 40% 40% 60% / 60% 30% 70% 40%', // Custom shape style
+          }}
+        />
+      </div>
+    </div>
+  </section>
+);
+
+const ProjectsScreen = () => (
+  <section id="projects-page" className="py-16 md:py-24 min-h-screen">
+    <h2 className="text-center text-4xl font-extrabold text-white mb-16 border-b pb-4" style={{ borderColor: CARD_BG }}>
+        My Portfolio Projects
+    </h2>
+
+    {/* Project X */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center mb-24">
+        {/* Text Content */}
+        <div className="order-2 md:order-1 p-6 rounded-xl shadow-2xl" style={{ backgroundColor: CARD_BG }}>
+            <h3 className="text-3xl font-bold text-white mb-4">Project X: Luxury Real Estate</h3>
+            <ul className="list-disc list-inside space-y-2 text-gray-400 mb-6 pl-4">
+                <li>Filmed 4K content for high-end clients.</li>
+                <li>Delivered stunning visuals and cinematic color grading.</li>
+                <li>Optimized for Instagram and YouTube promotion.</li>
+            </ul>
+            <div className="flex space-x-4">
+                <button 
+                    className="px-5 py-2 text-sm text-white font-medium rounded-lg transition duration-300"
+                    style={{ backgroundColor: ACCENT_COLOR }}
+                >
+                    View Video
+                </button>
+                <button 
+                    className="px-5 py-2 text-sm border font-medium rounded-lg hover:text-white transition duration-300"
+                    style={{ color: ACCENT_COLOR, borderColor: ACCENT_COLOR }}
+                >
+                    Read Case Study <ArrowRight className="w-4 h-4 inline ml-1" />
+                </button>
+            </div>
+        </div>
+        {/* Image */}
+        <div className="order-1 md:order-2 rounded-xl overflow-hidden">
+            <img src="https://placehold.co/600x400/1f2937/ffffff?text=Luxury+Interior" 
+                 alt="Project X Image" 
+                 className="w-full h-auto object-cover rounded-xl transition duration-500 hover:scale-[1.02] transform"/>
+        </div>
+    </div>
+
+    {/* Project Y (Reversed Layout) */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center mb-24">
+        {/* Image */}
+        <div className="rounded-xl overflow-hidden">
+            <img src="https://placehold.co/600x400/1f2937/ffffff?text=Mountain+Adventure" 
+                 alt="Project Y Image" 
+                 className="w-full h-auto object-cover rounded-xl transition duration-500 hover:scale-[1.02] transform"/>
+        </div>
+        {/* Text Content */}
+        <div className="p-6 rounded-xl shadow-2xl" style={{ backgroundColor: CARD_BG }}>
+            <h3 className="text-3xl font-bold text-white mb-4">Project Y: Automotive Campaign</h3>
+            <ul className="list-disc list-inside space-y-2 text-gray-400 mb-6 pl-4">
+                <li>Directed and edited a cinematic car advertisement.</li>
+                <li>Integrated drone footage and dynamic camera work.</li>
+                <li>Achieved over 1M organic views.</li>
+            </ul>
+            <div className="flex space-x-4">
+                <button 
+                    className="px-5 py-2 text-sm text-white font-medium rounded-lg transition duration-300"
+                    style={{ backgroundColor: ACCENT_COLOR }}
+                >
+                    View Video
+                </button>
+                <button 
+                    className="px-5 py-2 text-sm border font-medium rounded-lg hover:text-white transition duration-300"
+                    style={{ color: ACCENT_COLOR, borderColor: ACCENT_COLOR }}
+                >
+                    View Project <ArrowRight className="w-4 h-4 inline ml-1" />
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    {/* Work Gallery */}
+    <div className="border-t pt-16" style={{ borderColor: '#374151' }}>
+        <h3 className="text-center text-3xl font-bold text-white mb-12">My Work Gallery</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="rounded-xl overflow-hidden aspect-square">
+                <img src="https://placehold.co/400x400/1e2e3e/ffffff?text=Art+Piece+1" alt="Gallery Image 1" className="w-full h-full object-cover hover:opacity-75 transition duration-300" />
+            </div>
+            <div className="rounded-xl overflow-hidden aspect-square">
+                <img src="https://placehold.co/400x400/1e2e3e/ffffff?text=Cooking+Shot" alt="Gallery Image 2" className="w-full h-full object-cover hover:opacity-75 transition duration-300" />
+            </div>
+            <div className="rounded-xl overflow-hidden aspect-square">
+                <img src="https://placehold.co/400x400/1e2e3e/ffffff?text=Photo+Shot" alt="Gallery Image 3" className="w-full h-full object-cover hover:opacity-75 transition duration-300" />
+            </div>
+            <div className="rounded-xl overflow-hidden aspect-square">
+                <img src="https://placehold.co/400x400/1e2e3e/ffffff?text=Combination" alt="Gallery Image 4" className="w-full h-full object-cover hover:opacity-75 transition duration-300" />
+            </div>
+        </div>
+    </div>
+
+  </section>
+);
+
+const AboutScreen = ({ onNavigate }) => (
+  <section id="about-page" className="py-16 md:py-24 min-h-screen">
+    <div className="text-center max-w-3xl mx-auto px-4 p-12 rounded-xl" style={{ backgroundImage: `linear-gradient(to bottom, ${DARK_BG}, ${CARD_BG})` }}>
+        <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6">
+            From Vision to Visual Story.
+        </h2>
+        <p className="text-lg text-gray-400 mb-12">
+            I offer end-to-end creative services, blending art, cooking, and photography into unique visual projects.
+        </p>
+
+        {/* Features */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="p-4 rounded-lg">
+                <div className="flex justify-center mb-4">
+                      <Palette className="w-8 h-8" style={{ color: ACCENT_COLOR }} />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">Conceptual Art</h3>
+                <p className="text-gray-400 text-sm">
+                    If you want more than a sharp editor, let's craft a compelling visual narrative for your brand.
+                </p>
+            </div>
+
+            <div className="p-4 rounded-lg">
+                <div className="flex justify-center mb-4">
+                      <ChefHat className="w-8 h-8" style={{ color: ACCENT_COLOR }} />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">Culinary Production</h3>
+                <p className="text-gray-400 text-sm">
+                    Bringing food to life through beautiful presentation and high-quality photo/video.
+                </p>
+            </div>
+
+            <div className="p-4 rounded-lg">
+                <div className="flex justify-center mb-4">
+                      <Camera className="w-8 h-8" style={{ color: ACCENT_COLOR }} />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">Photography</h3>
+                <p className="text-gray-400 text-sm">
+                    High-quality stills and dynamic photography for any project type.
+                </p>
+            </div>
+        </div>
+        
+        <div className="flex justify-center space-x-4">
+            <button 
+                onClick={() => onNavigate(PAGES.CONTACT)} 
+                className="px-6 py-3 text-white font-semibold rounded-lg shadow-lg shadow-pink-900/40 transition duration-300"
+                style={{ backgroundColor: ACCENT_COLOR, hover: { backgroundColor: '#c70048' } }} // Adjusted hover color
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = '#c70048'}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = ACCENT_COLOR}
+            >
+                Start a Project
+            </button>
+            <button 
+                onClick={() => onNavigate(PAGES.PROJECTS)} 
+                className="px-6 py-3 text-accent border font-semibold rounded-lg hover:text-white transition duration-300"
+                style={{ color: ACCENT_COLOR, borderColor: ACCENT_COLOR }}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = ACCENT_COLOR; e.currentTarget.style.color = 'white'; }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = ACCENT_COLOR; }}
+            >
+                See Projects
+            </button>
+        </div>
+    </div>
+  </section>
+);
+
+const ContactScreen = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // In a real application, you'd send this data to a backend server.
+        console.log('Contact form submitted:', { name, email, message });
+        alert(`Thank you for your message, ${name}! We will be in touch soon. (Check console for data)`);
+        setName('');
+        setEmail('');
+        setMessage('');
+    };
+
+    return (
+        <section id="contact-page" className="py-16 md:py-24 min-h-screen">
+            <h2 className="text-center text-4xl font-extrabold text-white mb-16 border-b pb-4" style={{ borderColor: CARD_BG }}>
+                Get In Touch
+            </h2>
+            <div className="max-w-3xl mx-auto p-8 rounded-xl shadow-2xl" style={{ backgroundColor: CARD_BG }}>
+                <p className="text-lg text-gray-400 mb-8 text-center">
+                    Ready to start a project? Send me a message below.
+                </p>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-white mb-2">Name</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                            className="w-full p-3 rounded-lg border focus:ring-1"
+                            style={{ backgroundColor: DARK_BG, borderColor: '#374151', color: TEXT_LIGHT, focusRingColor: ACCENT_COLOR }}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-white mb-2">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="w-full p-3 rounded-lg border focus:ring-1"
+                            style={{ backgroundColor: DARK_BG, borderColor: '#374151', color: TEXT_LIGHT, focusRingColor: ACCENT_COLOR }}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="message" className="block text-sm font-medium text-white mb-2">Message</label>
+                        <textarea 
+                            id="message" 
+                            rows="4"
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            required
+                            className="w-full p-3 rounded-lg border focus:ring-1"
+                            style={{ backgroundColor: DARK_BG, borderColor: '#374151', color: TEXT_LIGHT, focusRingColor: ACCENT_COLOR }}
+                        ></textarea>
+                    </div>
+                    <button 
+                        type="submit" 
+                        className="w-full py-3 text-lg font-semibold rounded-lg text-white shadow-lg shadow-pink-900/40 transition duration-300"
+                        style={{ backgroundColor: ACCENT_COLOR, hover: { backgroundColor: '#c70048' } }}
+                        onMouseEnter={e => e.currentTarget.style.backgroundColor = '#c70048'}
+                        onMouseLeave={e => e.currentTarget.style.backgroundColor = ACCENT_COLOR}
+                    >
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+    );
+};
+
+
+// --- Main Application Component ---
+export default function App() {
+  const [currentPage, setCurrentPage] = useState(PAGES.HOME);
+  
+  // Scrolls to the top of the page whenever the route changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
+
+  const renderScreen = () => {
+    switch (currentPage) {
+      case PAGES.PROJECTS:
+        return <ProjectsScreen />;
+      case PAGES.ABOUT:
+        return <AboutScreen onNavigate={setCurrentPage} />;
+      case PAGES.CONTACT:
+        return <ContactScreen />;
+      case PAGES.HOME:
+      default:
+        return <HeroSection onNavigate={setCurrentPage} />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen" style={{ backgroundColor: DARK_BG, color: TEXT_LIGHT }}>
+      <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
+      
+      <main className="container mx-auto px-4 md:px-8 flex-grow">
+        {renderScreen()}
+      </main>
+      
+      <Footer />
+      
+      {/* Custom Styles for Inter Font (Assuming it needs to be declared) */}
+      <style global jsx>{`
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+      `}</style>
+    </div>
+  );
+}
+
